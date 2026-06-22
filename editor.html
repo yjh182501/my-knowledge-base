@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>发布文章 - 个人知识库</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .editor-header { text-align: center; padding: 30px 0 20px; border-bottom: 2px solid #e8e8e8; margin-bottom: 24px; }
+  .editor-header h1 { font-size: 24px; margin-bottom: 16px; }
+  .editor-actions { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+  .editor-actions button { padding: 10px 24px; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; transition: all 0.2s; }
+  .btn-save { background: #07c160; color: white; }
+  .btn-save:hover { background: #06ad56; }
+  .btn-preview { background: #1890ff; color: white; }
+  .btn-preview:hover { background: #096dd9; }
+  .btn-back { background: #f0f0f0; color: #333; }
+  .btn-back:hover { background: #e0e0e0; }
+  .editor-form { background: white; border-radius: 12px; padding: 24px; border: 1px solid #e8e8e8; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 15px; }
+  .form-group input[type="text"] { width: 100%; padding: 12px 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 16px; transition: border-color 0.2s; }
+  .form-group input[type="text"]:focus { border-color: #07c160; outline: none; }
+  .form-group .hint { font-size: 13px; color: #999; margin-top: 6px; }
+  .mode-selector { margin-bottom: 20px; display: flex; gap: 12px; align-items: center; }
+  .mode-selector label { font-weight: normal; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .mode-selector input[type="radio"] { accent-color: #07c160; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  textarea { width: 100%; min-height: 400px; padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 15px; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.8; resize: vertical; }
+  textarea:focus { border-color: #07c160; outline: none; }
+  #rich-editor { min-height: 400px; padding: 16px; border: 2px solid #e8e8e8; border-radius: 8px; font-size: 15px; line-height: 1.8; overflow-y: auto; background: white; }
+  #rich-editor:focus { border-color: #07c160; outline: none; }
+  .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #07c160; color: white; padding: 12px 32px; border-radius: 8px; font-size: 15px; z-index: 9999; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .toast.error { background: #e74c3c; }
+  @media (max-width: 600px) {
+    .editor-form { padding: 16px; }
+    textarea, #rich-editor { min-height: 300px; font-size: 14px; }
+    .editor-actions { flex-direction: column; }
+    .editor-actions button { width: 100%; }
+    .mode-selector { flex-wrap: wrap; }
+  }
+</style>
+</head><body>
+<div class="container">
+  <header class="editor-header">
+    <h1 id="editor-title">✍️ 发布文章</h1>
+    <div class="editor-actions">
+      <button class="btn-back" onclick="location.href='/'">← 返回首页</button>
+    </div>
+  </header>
+  <div class="editor-form">
+    <div class="form-group">
+      <label>文章标题</label>
+      <input type="text" id="post-title" placeholder="请输入文章标题..." autocomplete="off">
+    </div>
+    
+    <div class="mode-selector">
+      <label><input type="radio" name="mode" value="rich" checked onchange="onModeChange()"> 🎨 富文本模式</label>
+      <label><input type="radio" name="mode" value="markdown" onchange="onModeChange()"> 📝 Markdown 模式</label>
+    </div>
+
+    <div id="panel-rich" class="tab-content active">
+      <div id="rich-editor" contenteditable="true" onpaste="handlePaste(event)"></div>
+      <p class="hint" style="margin-top:8px;">💡 直接从微信公众号复制排版好的内容，粘贴到这里</p>
+    </div>
+
+    <div id="panel-markdown" class="tab-content">
+      <textarea id="markdown-input" placeholder="在此输入 Markdown 内容...&#10;&#10;支持 # 标题、**粗体**、- 列表、&gt; 引用 等语法"></textarea>
+      <p class="hint" style="margin-top:8px;">💡 粘贴微信公众号纯文本内容，自动识别基本格式</p>
+    </div>
+
+    <div class="editor-actions" style="margin-top: 20px;">
+      <button class="btn-save" id="btn-save" onclick="savePost()">💾 保存发布</button>
+      <button class="btn-preview" id="btn-preview" onclick="previewPost()">👁️ 预览</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// 检查是否是编辑模式
+const urlParams = new URLSearchParams(window.location.search);
+const editName = urlParams.get('edit');
+const editMode = urlParams.get('mode');
+const savedContent = sessionStorage.getItem('edit-content');
+
+if (editName && savedContent) {
+  document.getElementById('editor-title').textContent = '✏️ 编辑文章';
+  document.getElementById('post-title').value = editName;
+  if (editMode === 'rich') {
+    document.querySelector('input[name="mode"][value="rich"]').checked = true;
+    document.getElementById('rich-editor').innerHTML = savedContent;
+    document.getElementById('panel-rich').style.display = 'block';
+    document.getElementById('panel-markdown').style.display = 'none';
+  } else {
+    document.querySelector('input[name="mode"][value="markdown"]').checked = true;
+    document.getElementById('markdown-input').value = savedContent;
+    document.getElementById('panel-markdown').style.display = 'block';
+    document.getElementById('panel-rich').style.display = 'none';
+  }
+}
+
+function onModeChange() {
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  document.getElementById('panel-rich').style.display = mode === 'rich' ? 'block' : 'none';
+  document.getElementById('panel-markdown').style.display = mode === 'markdown' ? 'block' : 'none';
+}
+
+function handlePaste(e) {
+  e.preventDefault();
+  const html = e.clipboardData.getData('text/html');
+  const text = e.clipboardData.getData('text/plain');
+  console.log('粘贴检测 - HTML长度:', html.length, '文本长度:', text.length);
+  if (html && html.length > text.length) {
+    document.execCommand('insertHTML', false, html);
+    console.log('已粘贴富文本');
+  } else {
+    document.execCommand('insertText', false, text);
+    console.log('已粘贴纯文本');
+  }
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 2500);
+}
+
+function getContent() {
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  if (mode === 'markdown') {
+    return { mode: 'markdown', value: document.getElementById('markdown-input').value };
+  } else {
+    const editor = document.getElementById('rich-editor');
+    let val = editor.innerHTML;
+    if (!val || val.trim() === '') {
+      val = editor.innerText || '';
+    }
+    return { mode: 'rich', value: val };
+  }
+}
+
+function hasContent(str) {
+  if (!str) return false;
+  const temp = document.createElement('div');
+  temp.innerHTML = str;
+  return temp.innerText && temp.innerText.trim().length > 0;
+}
+
+function savePost() {
+  const title = document.getElementById('post-title').value.trim();
+  if (!title) { showToast('请输入文章标题！', true); return; }
+  const contentData = getContent();
+  if (!hasContent(contentData.value)) { showToast('请输入文章内容！', true); return; }
+
+  const ext = contentData.mode === 'rich' ? '.html' : '.md';
+  const data = JSON.stringify({ 
+    title, 
+    content: contentData.value, 
+    mode: contentData.mode,
+    filename: encodeURIComponent(title) + ext
+  });
+
+  console.log('保存内容:', contentData.mode, contentData.value.substring(0, 50));
+
+  fetch('/api/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: data
+  })
+  .then(r => r.json())
+  .then(res => {
+    console.log('服务器响应:', res);
+    if (res.ok) {
+      showToast('✅ 发布成功！');
+      setTimeout(() => location.href = '/post/' + res.filename, 800);
+    } else {
+      showToast('❌ 发布失败：' + res.error, true);
+    }
+  })
+  .catch(err => { 
+    console.error('保存错误:', err);
+    showToast('❌ 网络错误：' + err, true); 
+  });
+}
+
+function previewPost() {
+  const title = document.getElementById('post-title').value.trim() || '预览';
+  const contentData = getContent();
+  if (!hasContent(contentData.value)) { showToast('请先输入内容！', true); return; }
+
+  const win = window.open('', '_blank');
+  let contentHtml = contentData.value;
+  
+  if (contentData.mode === 'markdown') {
+    contentHtml = contentData.value
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
+      .replace(/\n/g, '<br>');
+  }
+
+  win.document.write('<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>预览 - ' + title + '</title>');
+  win.document.write('<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f0;color:#1a1a1a;line-height:1.8;font-size:16px;padding:16px;max-width:800px;margin:0 auto}h1{font-size:24px;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #e8e8e8}h2{font-size:20px;margin:24px 0 12px;padding-left:10px;border-left:3px solid #07c160}h3{font-size:17px;margin:18px 0 10px}p{margin-bottom:12px}blockquote{margin:12px 0;padding:10px 16px;background:#f9f9f7;border-left:4px solid #07c160;border-radius:0 8px 8px 0;color:#666}ul,ol{margin:10px 0 14px 20px}li{margin-bottom:4px}strong{font-weight:bold}em{font-style:italic}a{color:#07c160}hr{border:none;height:1px;background:#e8e8e8;margin:20px 0}img{max-width:100%;border-radius:8px;margin:12px 0}</style>');
+  win.document.write('</head><body><h1>' + title + '</h1>' + contentHtml + '</body></html>');
+  win.document.close();
+}
+</script>
+</body></html>

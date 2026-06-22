@@ -1,0 +1,673 @@
+<section style="font-family: &quot;Times New Roman&quot;, Georgia, SimSun, serif; line-height: 1.92; color: rgb(51, 51, 51); padding: 20px 16px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; max-width: 100%; overflow-wrap: break-word; text-align: justify;"><br>
+<h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">一、AI 与智能体</h2>
+<blockquote style="line-height: 1.92; color: rgb(89, 89, 89); background: rgb(250, 250, 250); margin: 16px 0px 16px 8px; padding: 16px; border-left: 2px solid rgba(253, 126, 20, 0.6); border-radius: 4px;"><p style="line-height: 1.92; color: rgb(51, 51, 51); margin: 0px; letter-spacing: 0px; text-indent: 2em;">围绕大语言模型（LLM）的核心概念，帮你理解 AI 的工作原理与应用方式。</p></blockquote><section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">LLM</strong>（大型语言模型）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">只有概率，没有灵魂，AI 的"发动机"</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Context</strong>（上下文）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">AI 当前"看到"和"记住"的信息范围</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Prompt</strong>（提示词）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">你向 AI 发出的指令或问题</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Memory</strong>（记忆）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">让 AI 跨会话记住信息的能力</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Agent</strong>（智能体）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">自动干活的程序，AI 世界的"传话筒"</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SubAgent</strong>（子智能体）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">大 Agent 手下的小 Agent，分工协作</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">RAG</strong>（检索增强生成）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">给 AI 装上"外接硬盘"——从向量数据库检索相关内容辅助生成</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">MCP</strong>（模型上下文协议）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">AI 和外部工具沟通的标准"接头暗号"</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Web Search</strong>（联网搜索）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">AI 实时上网查资料</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Workflow</strong>（工作流）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">多个步骤串联起来的自动化流程</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SKILL</strong>（技能）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">封装好的特定能力模块，AI 可以按需调用</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">ComfyUI</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">开源节点式 AI 工作流工具，像"搭积木"一样编排图像/视频生成</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">二、编程语言与基础概念</h2>
+<h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">前端三剑客</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">比喻</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">HTML</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">房子的毛坯结构</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">决定页面「有什么、怎么布局」</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">CSS</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">装修 + 软装</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">决定页面「好不好看」</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">JavaScript（JS）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">水电 + 智能开关</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">决定页面「怎么交互、怎么运作」</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">CSS 预处理器</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">比喻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">原生 CSS</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">徒手盖房子，重复代码多</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Sass / Less</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">专业施工队，有变量、循环等"工具"，编译后生成标准 CSS</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">通用概念</h3>
+<ul style="line-height: 1.92; margin: 12px 0px; padding-left: 20px;"><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">API</span>： 软件世界里的"服务员/跑腿小哥"，在两个软件之间传递消息。就像<strong style="font-weight: bold; color: #fd7e14;display:inline !important; width:auto !important; float:none !important;">插座</strong>——别人做好了功能，留一个口给你插上就能用。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">SDK</span>： 别人做好的半成品工具包，拿来直接用，不用从零造轮子（好比厂家给的"电机 + 驱动 + 说明书"套装）。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">JSON</span>： 程序世界的"通用清单/表格"，只存数据不跑代码（<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;display:inline !important; width:auto !important; float:none !important; margin:0 2px !important; vertical-align:baseline;">.json</code> = 记事本，<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;display:inline !important; width:auto !important; float:none !important; margin:0 2px !important; vertical-align:baseline;">.js</code> = 能跑的代码）。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">端口（Port）</span>： 电脑里每个程序的"门牌号"——<strong style="font-weight: bold; color: #fd7e14;display:inline !important; width:auto !important; float:none !important;">IP 地址</strong>是整栋大楼的地址，<strong style="font-weight: bold; color: #fd7e14;display:inline !important; width:auto !important; float:none !important;">端口</strong>是每个房间的门牌号。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">demo</span>： 示例 / 小样。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px; vertical-align: baseline; display: inline !important; width: auto !important; float: none !important; margin: 0px 2px !important;">init</code></span>： 初始化。</span></li></ul>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">三、前端开发框架与生态</h2>
+<h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">Vue 生态（国内主流，中后台 / 企业项目首选）</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">比喻</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Vue 3</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">前端界面"骨架搭建工具"</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">数据变界面自动变，组合式 API（setup）更灵活</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Vue Router</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">手机导航 APP</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">管理页面跳转（如首页 → 个人中心）</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Pinia</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">手机云盘</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">管理全局共享数据（如登录状态），替代 Vuex</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Naive UI</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">手机主题商店</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">提供现成按钮/表格/弹窗组件，不用自己写样式</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Vite</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">手机快充</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">开发热更新飞快，打包速度也快</td>
+</tr>
+</tbody>
+</table></section><p style="line-height: 1.92; margin: 0px 0px 22px; letter-spacing: 0px; text-indent: 2em;"><strong style="font-weight: bold; color: #fd7e14;">核心搭配</strong>：Vue 3 + TypeScript + Vite + Vue Router + Pinia</p><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">React 生态（国外主流，大型复杂应用首选）</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">比喻</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">React</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一套乐高积木</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">由 Facebook 维护，灵活性高</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">React Router</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">导航系统</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">管理页面路由</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Zustand / Redux Toolkit</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">状态管理中心</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">管理全局数据</td>
+</tr>
+</tbody>
+</table></section><p style="line-height: 1.92; margin: 0px 0px 22px; letter-spacing: 0px; text-indent: 2em;"><strong style="font-weight: bold; color: #fd7e14;">核心搭配</strong>：React 18 + TypeScript + Vite + React Router + Zustand/Redux Toolkit</p><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">进阶框架</h3>
+<ul style="line-height: 1.92; margin: 12px 0px; padding-left: 20px;"><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">Next.js</span>： 基于 React 的"全栈 Web 框架"，带说明书、展示柜的"乐高主题展厅"——高性能、好 SEO。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">Electron</span>： 用网页技术（HTML/CSS/JS）开发桌面软件的框架，把网页的"美貌"和 Node.js 的"力量"装进 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;display:inline !important; width:auto !important; float:none !important; margin:0 2px !important; vertical-align:baseline;">.exe</code>。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">WebAssembly（Wasm）</span>： 给浏览器装的"涡轮增压发动机"——专门处理 JS 跑不快的重型计算任务。</span></li><li style="line-height: 1.92; margin: 4px 0px;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">React + TypeScript + Vite</span> 组合：Vite 管构建/运行，React 管页面开发，TypeScript 管代码校验。</li></ul>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">四、后端开发</h2>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Node.js</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">让 JavaScript 可以脱离浏览器、直接在电脑/服务器上运行的<strong style="font-weight: bold; color: #fd7e14;">后端/服务端运行环境</strong></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Spring Boot</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Java 后端世界的"豪华智能别墅"，目前 Java 企业级开发最主流的框架</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Supabase</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">前端开发者的"后端工具箱"，把后端变成"拿来即用的工具"，不用关心服务器怎么搭</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SSH</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">安全远程操控服务器的<strong style="font-weight: bold; color: #fd7e14;">命令行工具</strong>，默认端口 22，让你在自己的电脑上安全操控远程服务器</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">五、网络协议与通信</h2>
+<blockquote style="line-height: 1.92; color: rgb(89, 89, 89); background: rgb(250, 250, 250); margin: 16px 0px 16px 8px; padding: 16px; border-left: 2px solid rgba(253, 126, 20, 0.6); border-radius: 4px;"><p style="line-height: 1.92; color: rgb(51, 51, 51); margin: 0px; letter-spacing: 0px; text-indent: 2em;">计算机之间"沟通的规矩"和"传输的管道"。</p></blockquote><section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">协议/概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">常见用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">HTTP</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">浏览器和服务器之间"通信的规矩"</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">网页访问</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SSH</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">加密的远程命令行通道（端口 22）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">远程管理服务器/NAS</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">端口</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">电脑里每个程序的"门牌号"</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">标识不同服务</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">DDNS</strong>（动态域名解析）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">把变动的公网 IP 绑成固定域名，在外永远能访问家里设备</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">家庭服务器/NAS 外网访问</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">DHCP</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">路由器自动分配内网 IP 的服务</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">设备连 WiFi 自动拿到 IP</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SMB</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">局域网文件共享协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">同一 WiFi 下直接打开 NAS 里的电影</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">WebDAV</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">通用网络文件访问协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">AList 转云盘为 WebDAV，VidHub 直接播放</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">FTP</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">老牌文件传输协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">上传文件到服务器</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">NFS</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Linux/NAS 高速共享协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">NAS 给 Linux 设备高速传 4K 视频</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">DLNA</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">局域网投屏播放协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">手机把视频投到电视播放</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SMTP</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">简单邮件发送协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">专门用来发邮件</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">frpc</strong>（内网穿透）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">把局域网服务映射到公网，在外也能访问家里设备</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">配合 Emby/AList 在外访问</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">curl</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">只会跑腿的"特工浏览器"——帮你去某个地址拿或送数据</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">测试网络、传输数据</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">易混协议对比</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">协议</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">区别一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">DHCP</strong> vs <strong style="font-weight: bold; color: #fd7e14;">DDNS</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">DHCP = 局域网<strong style="font-weight: bold; color: #fd7e14;">自动分内网 IP</strong>；DDNS = 外网<strong style="font-weight: bold; color: #fd7e14;">把变动的公网 IP 绑成固定域名</strong></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">SMB</strong> vs <strong style="font-weight: bold; color: #fd7e14;">WebDAV</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">SMB = 局域网文件共享；WebDAV = 跨网络文件访问</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">FTP</strong> vs <strong style="font-weight: bold; color: #fd7e14;">NFS</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">FTP = 老牌通用传输；NFS = Linux 下高速传输</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">六、开发工具与环境</h2>
+<h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">编辑器与运行环境</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">IDE</strong>（集成开发环境）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">写代码的"超级编辑器"——写代码、运行、调试全装在一个软件里，<strong style="font-weight: bold; color: #fd7e14;">可视化的全能厨房</strong></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">CLI</strong>（命令行界面）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">通过"敲文字命令"来操作电脑，<strong style="font-weight: bold; color: #fd7e14;">厨房的"语音指令系统"</strong></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Postman</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">专门用来测试 API 接口的"测试器"——给后端发请求、看返回数据</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">curl</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">命令行下的"轻量版 Postman"，用来测试网络和传输数据</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Git</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">手机的"备份功能"——管理代码版本，防止改坏了回不去</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Netlify</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">“全自动的免费展览馆”——写好网页，它帮你发布到互联网让全世界看到</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">项目结构</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">src</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">项目代码根目录，所有业务代码放这里</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">init</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">初始化</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">七、命令行与操作系统</h2>
+<h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">Shell（命令解释器）</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">终端（Terminal）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一个"窗口程序"，是 Shell 的容器</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Shell</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">命令解释器，负责真正执行命令，是<strong style="font-weight: bold; color: #fd7e14;">你和电脑之间的"翻译官"</strong></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">bash</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Linux 最常用的 Shell，普通版</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">zsh</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">bash 的增强版，macOS 默认</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">cmd</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Windows 自带的 Shell，功能较老旧</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">PowerShell</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Windows 的新版 Shell，功能更强</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">命令行命令</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">环境</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">示例命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">CMD 命令（Windows）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">dir</code> <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">cd</code> <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">ping</code></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Unix 命令（Linux/NAS）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">ls</code> <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">cd</code> <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">docker</code> <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">ollama</code></td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">系统机制</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">PATH</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">系统的"找软件快捷清单"——你在命令行输命令，系统就去 PATH 里的文件夹挨个找</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">环境变量</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">系统全局的公共配置小纸条，软件启动时自动读取，方便统一</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">文件类型</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">类型</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">.bat</code></strong>（批处理）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Windows 的"一键启动按钮"——把一堆命令写进一个文件，双击全部执行</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">.dll</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Windows 的"公共零件库"——幕后干重活的工人，开发者一般不用管</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">.msi</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">微软官方规定的标准安装包格式，更规范、更稳定</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">.exe</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">可以是安装程序，也可以直接运行的软件，格式比较自由</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">八、包管理器与依赖管理</h2>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">工具</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">所属生态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">npm</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Node.js 的"应用商店 + 快递员"，帮开发者直接用别人做好的代码包</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Node.js</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">npx</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Node.js 里的临时运行工具，用来临时运行 npm 包（不用安装）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Node.js</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">npm install</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">读取 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">package.json</code> → 下载依赖 → 生成 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">node_modules</code></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Node.js</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;"><code style="background: rgba(253, 126, 20, 0.1); padding: 2px 4px; border-radius: 3px; font-family: &quot;SF Mono&quot;, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 13px;">npm start</code></strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">运行项目的启动命令，具体执行什么看 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">package.json</code> 里怎么写</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Node.js</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">brew（Homebrew）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">macOS/Linux 的"命令行应用商店"</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">macOS/Linux</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">mvn（Maven）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Java 世界的项目构建、依赖管理工具</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Java</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">POM（pom.xml）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Maven 项目的核心配置文件，管项目信息 + 依赖 + 编译打包</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Java</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">pip3</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Python 3 的包管理工具（macOS 默认 Python 3 用 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">pip3</code> 而非 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">pip</code>）</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Python</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">venv</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Python 自带的虚拟环境工具，给不同项目隔离依赖包</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Python</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">九、容器与部署</h2>
+<h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">Docker 体系</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">比喻</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Docker</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">"即插即用小环境"的玩具工厂</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">专门做隔离的运行环境</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">容器（Container）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">装好所有零件的成品玩具</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">隔离的、可直接运行的迷你系统环境</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">镜像（Image）</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">做玩具的"模具"</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">容器的模板，存了程序运行的所有基础内容</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Docker Compose</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">玩具套装的"一键组装说明书"</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一个配置文件启动/停止所有容器</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">镜像仓库</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">存放"玩具模具"的网上商店</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">不用自己做模具，直接下载现成的</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">沙盒 vs 容器</h3>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 440px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">概念</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">沙盒</strong> = 笼子</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">只要关住不乱跑就行，里面有没有吃的不管</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">容器</strong> = 带食物、水、玩具的笼子</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">关住不乱跑 + 里面能直接生活、运行软件</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">内网穿透</h3>
+<ul style="line-height: 1.92; margin: 12px 0px; padding-left: 20px;"><li style="line-height: 1.92; margin: 4px 0px;"><span style="display:block;margin:0;padding:0;line-height: 1.92;"><span style="font-weight: bold; color: rgb(253, 126, 20); width: auto !important;">frpc（内网穿透客户端）</span>： 把家里局域网的服务（Emby、AList、NAS）映射到公网，在外网也能访问。家里没有公网 IP → 在 NAS 上运行 frpc → 外面就能访问家里的服务。</span></li></ul>
+<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">十、文件与配置格式</h2>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">格式</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">JSON</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.json</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">纯数据记事本，只存数据不跑代码</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">API 数据传输、配置文件</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">YAML / YML</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.yml</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">极简、缩进、像写笔记，目前最流行的配置格式</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Docker Compose、配置文件</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">XML</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.xml</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">标签多、繁琐、像 HTML，老项目常用</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">老系统、Android 布局</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">TypeScript</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.ts</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">JavaScript 的"高级加强版"，加上了类型检查</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">前端项目</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">JavaScript</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.js</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">网页原始语言，灵活但也有野</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">浏览器/Node.js</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Markdown</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.md</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">轻量级标记语言，用来写文档/笔记</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">本文档就是 <code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">.md</code></td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">POM</strong> (<code style="background: #fd7e141A; color: #fd7e14; padding: 2px 4px; border-radius: 3px; font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px;">pom.xml</code>)</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Maven 项目的核心配置文件</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">Java 项目</td>
+</tr>
+</tbody>
+</table></section><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">十一、媒体与影音服务</h2>
+<blockquote style="line-height: 1.92; color: rgb(89, 89, 89); background: rgb(250, 250, 250); margin: 16px 0px 16px 8px; padding: 16px; border-left: 2px solid rgba(253, 126, 20, 0.6); border-radius: 4px;"><p style="line-height: 1.92; color: rgb(51, 51, 51); margin: 0px; letter-spacing: 0px; text-indent: 2em;">搭建私人影音流媒体系统的基础组件。</p></blockquote><section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">工具</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一句话理解</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">核心作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Emby 服务端</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">把你的本地媒体变成私人流媒体平台</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">集中管理 + 自动转码 + 多端播放</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">VidHub</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">连接所有视频资源的万能播放器</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">多源整合 + 自动整理 + 高清播放</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">AList</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">连接云盘和媒体服务的中间件</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">多存储聚合 + WebDAV 服务</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">PikPak 网盘</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">影视爱好者的理想云盘</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">离线秒存 + 高速 + 内容友好</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;"><strong style="font-weight: bold; color: #fd7e14;">Vaultwarden</strong></td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">轻量级自托管密码管理服务器</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">自己管密码，不依赖第三方</td>
+</tr>
+</tbody>
+</table></section><h3 style="font-size: 17px; margin: 34px 0px 18px; color: rgb(62, 62, 62); text-align: left; line-height: 1.3; background-image: linear-gradient(rgb(216, 216, 216), rgb(216, 216, 216)); background-size: 40% 1px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 12px;">影音系统数据流</h3>
+<pre class="hljs code__pre" style="width:100% !important;max-width:100% !important;margin:12px 0 !important;background:#0d1117 !important;border:1px solid #30363d !important;border-radius:8px !important;box-shadow:0 4px 12px rgba(0,0,0,0.3) !important;overflow-x:auto !important;overflow-y:hidden !important;-webkit-overflow-scrolling:touch !important;box-sizing:border-box !important;font-family:'SF Mono',Consolas,Monaco,monospace !important;font-size:13px !important;line-height:1.75 !important;color:#f0f6fc !important;white-space:normal !important;"><section style="background: rgb(22, 27, 34) !important; padding: 6px 10px !important; border-width: medium medium 1px !important; border-style: none none solid !important; border-color: currentcolor currentcolor rgb(48, 54, 61) !important; border-image: initial !important; border-radius: 8px 8px 0px 0px !important; line-height: 1 !important; box-sizing: border-box !important; width: 100% !important;"><span style="display:inline-block !important;width:9px !important;height:9px !important;border-radius:50% !important;background:#ff5f57 !important;margin-right:7px !important;font-size:0 !important;line-height:0 !important;color:transparent !important;vertical-align:top !important;">&nbsp;</span><span style="display:inline-block !important;width:9px !important;height:9px !important;border-radius:50% !important;background:#ffbd2e !important;margin-right:7px !important;font-size:0 !important;line-height:0 !important;color:transparent !important;vertical-align:top !important;">&nbsp;</span><span style="display:inline-block !important;width:9px !important;height:9px !important;border-radius:50% !important;background:#28c840 !important;font-size:0 !important;line-height:0 !important;color:transparent !important;vertical-align:top !important;">&nbsp;</span></section><code style="display: block !important; width: 100% !important; min-width: 100% !important; max-width: 100% !important; padding: 0px !important; box-sizing: border-box !important; background: transparent !important; font-family: inherit !important; line-height: 1.75 !important; overflow: visible !important; margin: 0px !important;"><section style="display:flex !important;align-items:flex-start !important;overflow-x:hidden !important;overflow-y:visible !important;width:100% !important;max-width:100% !important;padding:0 !important;box-sizing:border-box !important;margin:0 !important;">
+          <section class="line-numbers" style="text-align:right !important;padding:12px 0 !important;border-right:1px solid rgba(255,255,255,0.1) !important;user-select:none !important;background:transparent !important;flex:0 0 auto !important;min-width:3.5em !important;box-sizing:border-box !important;margin:0 !important;"><section style="padding:0 10px 0 0 !important;line-height:1.75 !important;color:#95989C !important;">1</section><section style="padding:0 10px 0 0 !important;line-height:1.75 !important;color:#95989C !important;">2</section><section style="padding:0 10px 0 0 !important;line-height:1.75 !important;color:#95989C !important;">3</section></section>
+          <section class="code-scroll" style="flex:1 1 auto !important;overflow-x:auto !important;overflow-y:visible !important;-webkit-overflow-scrolling:touch !important;padding:12px 12px 12px 16px !important;min-width:0 !important;box-sizing:border-box !important;margin:0 !important;">
+            <section style="white-space: pre !important; min-width: max-content !important; line-height: 1.75 !important; margin: 0px !important;">云盘&nbsp;(PikPak)&nbsp;→&nbsp;AList&nbsp;(WebDAV)&nbsp;→&nbsp;VidHub&nbsp;/&nbsp;Emby&nbsp;→&nbsp;多端播放<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↕<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frpc&nbsp;(内网穿透)&nbsp;→&nbsp;外网访问</section>
+          </section>
+        </section></code></pre><hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); margin: 40px 0;"><h2 style="font-size: 21px; margin: 34px auto 22px; color: rgb(62, 62, 62); text-align: left; line-height: 1.28; border-bottom: 1px solid rgb(216, 216, 216); padding-bottom: 14px;">类别索引速查</h2>
+<section style="box-sizing: border-box; width: 100%; max-width: 100%; overflow: scroll hidden; margin: 16px 0px; padding-bottom: 10px;"><table style="width: 770px; min-width: 100%; max-width: none; border-collapse: collapse; table-layout: auto; border: 1px solid #e1e4e8;"><thead style="background: #f6f8fa;"><tr>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">类别</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">包含概念数量</th>
+<th style="background: rgb(247, 247, 247); border: 1px solid rgb(225, 228, 232); padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">适合谁看</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">一、AI 与智能体</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">12 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">所有人都值得看</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">二、编程语言与基础概念</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">10+ 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">编程新手</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">三、前端开发框架</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">10+ 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">前端开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">四、后端开发</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">4 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">后端/全栈开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">五、网络协议</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">13+ 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">运维/自建服务</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">六、开发工具与环境</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">7+ 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">所有开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">七、命令行与操作系统</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">10+ 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">所有开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">八、包管理器</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">9 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">所有开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">九、容器与部署</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">7 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">运维/开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">十、文件与配置格式</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">7 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">所有开发者</td>
+</tr>
+<tr>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">十一、媒体与影音</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">5 个</td>
+<td style="border: 1px solid #e1e4e8; padding: 12px; text-align: left; white-space: nowrap; word-break: keep-all; overflow-wrap: normal;">影音爱好者</td>
+</tr>
+</tbody>
+</table></section><blockquote style="line-height: 1.92; color: rgb(89, 89, 89); background: rgb(250, 250, 250); margin: 16px 0px 16px 8px; padding: 16px; border-left: 2px solid rgba(253, 126, 20, 0.6); border-radius: 4px;"><p style="line-height: 1.92; color: rgb(51, 51, 51); margin: 0px; letter-spacing: 0px; text-indent: 2em;">笔记持续更新中……2026.06.22</p></blockquote></section>
