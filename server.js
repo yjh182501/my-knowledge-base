@@ -466,7 +466,10 @@ function doSearch(q) {
           previewHtml = '<div class="search-preview">' + previewEsc + '</div>';
         }
         const href = '/post/' + encodeURIComponent(p.name) + '.' + linkExt;
-        return '<div class="search-item"><a href="' + href + '">' + nameEsc + ' <small>[' + extLabel + ']</small></a>' + previewHtml + '</div>';
+        return '<a class="search-item" href="' + href + '">' +
+          '<div class="search-item-title">' + nameEsc + ' <small>[' + extLabel + ']</small></div>' +
+          previewHtml +
+          '</a>';
       }).join('');
     })
     .catch(err => {
