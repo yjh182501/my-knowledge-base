@@ -445,7 +445,7 @@ const server = http.createServer((req, res) => {
     <div id="search-results" class="search-results"></div>
   </div>
   <main class="post-list" id="post-list">${postCards || '<p class="empty">暂无文章，点击右上角"发布文章"来创建第一篇</p>'}</main>
-  <footer><p>Powered by 个人知识库</p></footer>
+  <footer><p>Powered by yjh182501</p></footer>
 </div>
 <script>
 function escapeHtml(str) {
@@ -563,7 +563,7 @@ function logout() {
     </div>` : ''}
     <div class="post-content">${htmlContent}</div>
   </article>
-  <footer><p>Powered by 个人知识库</p></footer>
+  <footer><p>Powered by yjh182501</p></footer>
 </div>
 <script>
 // 搜索跳转定位
@@ -601,6 +601,7 @@ function logout() {
   }
 })();
 </script>
+<script>
 function deletePost(name, ext) {
   if (!confirm('确定要删除这篇文章吗？')) return;
   fetch('/api/post/' + name, { method: 'DELETE' })
@@ -630,6 +631,7 @@ function editPost(name) {
       location.href = '/editor?' + params.toString();
     });
 }
+</script>
 </script>
 </body></html>`;
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
