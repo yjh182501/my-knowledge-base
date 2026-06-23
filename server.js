@@ -15,20 +15,82 @@ const HOST = '0.0.0.0';
 // 需要 repo 权限。不设置则跳过自动同步。
 function autoGitSync(fileName) {
   const token = process.env.GIT_TOKEN;
-  if (!token) { console.log('ℹ️  未设置GIT_TOKEN，跳过自动同步'); return; }
-  try {
-    execSync('git config user.name "KnowledgeBot"', { cwd: __dirname, stdio: 'ignore' });
-    execSync('git config user.email "bot@knowledge.base"', { cwd: __dirname, stdio: 'ignore' });
-    execSync('git add posts/', { cwd: __dirname, stdio: 'ignore' });
-    const status = execSync('git status --porcelain posts/', { cwd: __dirname, encoding: 'utf-8' });
-    if (!status.trim()) { console.log('ℹ️  没有需要同步的变更'); return; }
-    execSync(`git commit -m "auto: ${fileName || 'save notes'}"`, { cwd: __dirname, stdio: 'ignore' });
-    const remote = `https://x-access-token:${token}@github.com/yjh182501/my-knowledge-base.git`;
-    execSync(`git push ${remote} main`, { cwd: __dirname, stdio: 'ignore' });
-    console.log('✅ 笔记已自动同步到 GitHub');
-  } catch(e) {
-    console.error('⚠️ Git同步失败:', e.message);
+  if (!token) {
+    console.log('[autoGitSync] ℹ️ 未设置 GIT_TOKEN，跳过自动同步');
+    return;
   }
+
+  const logPrefix = '[autoGitSync]';
+  let output = '';
+
+  function exec(cmd, options) {
+    try {
+      const result = execSync(cmd, { cwd: __dirname, encoding: 'utf-8', ...options });
+      return { success: true, output: result || '' };
+    } catch (e) {
+      return { success: false, error: e.stderr || e.message || String(e) };
+    }
+  }
+
+  // 1. 配置 git 用户信息
+  exec('git config user.name "KnowledgeBot"', { stdio: 'ignore' });
+  exec('git config user.email "bot@knowledge.base"', { stdio: 'ignore' });
+
+  // 2. 检查当前是否在 git 仓库中
+  const gitCheck = exec('git rev-parse --git-dir');
+  if (!gitCheck.success) {
+    console.error(`${logPrefix} ❌ 当前目录不是 git 仓库`);
+    return;
+  }
+
+  // 3. 获取当前分支
+  const branchResult = exec('git rev-parse --abbrev-ref HEAD');
+  const branch = branchResult.success ? branchResult.output.trim() : 'main';
+  console.log(`${logPrefix} 当前分支: ${branch}`);
+
+  // 4. 先尝试拉取最新代码（避免冲突）
+  console.log(`${logPrefix} 🔄 正在拉取远程最新代码...`);
+  const remoteUrl = `https://x-access-token:${token}@github.com/yjh182501/my-knowledge-base.git`;
+  const pullResult = exec(`git pull ${remoteUrl} ${branch} --rebase`, { stdio: 'pipe' });
+  if (!pullResult.success) {
+    console.warn(`${logPrefix} ⚠️ 拉取远程代码失败（可能是首次或没有远程变更）: ${pullResult.error}`);
+    // 继续执行，可能是首次部署
+  } else {
+    console.log(`${logPrefix} ✅ 已同步远程最新代码`);
+  }
+
+  // 5. 添加 posts/ 目录的变更
+  const addResult = exec('git add posts/');
+  if (!addResult.success) {
+    console.error(`${logPrefix} ❌ git add 失败: ${addResult.error}`);
+    return;
+  }
+
+  // 6. 检查是否有变更需要提交
+  const statusResult = exec('git status --porcelain posts/');
+  if (!statusResult.success || !statusResult.output.trim()) {
+    console.log(`${logPrefix} ℹ️ 没有需要同步的变更`);
+    return;
+  }
+
+  // 7. 提交变更
+  const commitMsg = `auto: ${fileName || 'save notes'} [${new Date().toISOString()}]`;
+  const commitResult = exec(`git commit -m "${commitMsg}"`);
+  if (!commitResult.success) {
+    console.error(`${logPrefix} ❌ git commit 失败: ${commitResult.error}`);
+    return;
+  }
+  console.log(`${logPrefix} ✅ 已提交: ${commitMsg}`);
+
+  // 8. 推送到远程
+  console.log(`${logPrefix} 🚀 正在推送到 GitHub...`);
+  const pushResult = exec(`git push ${remoteUrl} ${branch}`);
+  if (!pushResult.success) {
+    console.error(`${logPrefix} ❌ git push 失败: ${pushResult.error}`);
+    return;
+  }
+
+  console.log(`${logPrefix} ✅ 笔记已自动同步到 GitHub (${branch} 分支)`);
 }
 
 // ============================================================
