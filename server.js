@@ -2,10 +2,34 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
 
 const POSTS_DIR = path.join(__dirname, 'posts');
 const PORT = process.env.PORT || 8080;
-const HOST = '0.0.0.0'; // 绑定所有网络接口，让外网可访问
+const HOST = '0.0.0.0';
+
+// ============================================================
+// Git 自动同步（保存笔记后自动推送到 GitHub，防止部署时丢失）
+// ============================================================
+// 在 Render 环境变量中设置 GIT_TOKEN（GitHub Personal Access Token）
+// 需要 repo 权限。不设置则跳过自动同步。
+function autoGitSync(fileName) {
+  const token = process.env.GIT_TOKEN;
+  if (!token) { console.log('ℹ️  未设置GIT_TOKEN，跳过自动同步'); return; }
+  try {
+    execSync('git config user.name "KnowledgeBot"', { cwd: __dirname, stdio: 'ignore' });
+    execSync('git config user.email "bot@knowledge.base"', { cwd: __dirname, stdio: 'ignore' });
+    execSync('git add posts/', { cwd: __dirname, stdio: 'ignore' });
+    const status = execSync('git status --porcelain posts/', { cwd: __dirname, encoding: 'utf-8' });
+    if (!status.trim()) { console.log('ℹ️  没有需要同步的变更'); return; }
+    execSync(`git commit -m "auto: ${fileName || 'save notes'}"`, { cwd: __dirname, stdio: 'ignore' });
+    const remote = `https://x-access-token:${token}@github.com/yjh182501/my-knowledge-base.git`;
+    execSync(`git push ${remote} main`, { cwd: __dirname, stdio: 'ignore' });
+    console.log('✅ 笔记已自动同步到 GitHub');
+  } catch(e) {
+    console.error('⚠️ Git同步失败:', e.message);
+  }
+}
 
 // ============================================================
 // 密码保护配置
@@ -407,6 +431,7 @@ const server = http.createServer((req, res) => {
     }
     try {
       fs.unlinkSync(filePath);
+      autoGitSync('delete ' + encodedName);
       res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({ ok: true }));
     } catch (err) {
@@ -437,6 +462,7 @@ const server = http.createServer((req, res) => {
         }
         
         fs.writeFileSync(filePath, content, 'utf-8');
+        autoGitSync('update ' + encodedName);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({ ok: true }));
       } catch (err) {
@@ -742,6 +768,7 @@ function editPost(name) {
         }
 
         fs.writeFileSync(filePath, content, 'utf-8');
+        autoGitSync('new ' + title);
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({ 
