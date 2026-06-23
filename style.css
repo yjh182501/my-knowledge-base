@@ -564,3 +564,13 @@ footer {
   .post-page h2 { font-size: 19px; }
   .login-box { padding: 32px 24px; }
 }
+
+/* 搜索高亮标记 */
+mark.search-highlight {
+  background: #fef08a;
+  color: #1a1a1a;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px #fde047;
+}

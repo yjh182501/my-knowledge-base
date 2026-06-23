@@ -148,7 +148,7 @@ function formatInline(text) {
 // 搜索文章（标题+内容）
 function searchPosts(keyword) {
   const posts = getPostList();
-  if (!keyword) return posts.map(p => ({ ...p, preview: '' }));
+  if (!keyword) return posts.map(p => ({ ...p, preview: '', matchPosition: -1 }));
   const kw = keyword.toLowerCase();
   
   return posts
@@ -158,31 +158,42 @@ function searchPosts(keyword) {
       const content = fs.readFileSync(filePath, 'utf-8');
       let preview = '';
       let highlightText = '';
+      let matchPosition = -1;
       
       if (p.ext === 'html') {
-        highlightText = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').substring(0, 300);
+        highlightText = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
       } else {
-        highlightText = content.substring(0, 300).replace(/[#*`>\-\[\]()!]/g, '');
+        highlightText = content.replace(/[#*`>\-\[\]()!]/g, '');
       }
       
       const titleMatch = p.name.toLowerCase().includes(kw);
-      const contentMatch = highlightText.toLowerCase().includes(kw);
+      const contentLower = highlightText.toLowerCase();
+      const contentIdx = contentLower.indexOf(kw);
+      const contentMatch = contentIdx >= 0;
+      matchPosition = contentIdx;
       
       if (contentMatch || titleMatch) {
-        const idx = highlightText.toLowerCase().indexOf(kw);
-        if (idx >= 0) {
-          const start = Math.max(0, idx - 20);
-          const end = Math.min(highlightText.length, idx + kw.length + 40);
+        // 计算匹配位置的上下文
+        if (matchPosition >= 0) {
+          const start = Math.max(0, matchPosition - 30);
+          const end = Math.min(highlightText.length, matchPosition + kw.length + 60);
           preview = (start > 0 ? '...' : '') + highlightText.substring(start, end) + (end < highlightText.length ? '...' : '');
+        } else {
+          // 标题匹配但没有内容匹配，显示文章开头
+          preview = highlightText.substring(0, 100);
         }
-        return { ...p, preview, titleMatch, contentMatch };
+        return { ...p, preview, titleMatch, contentMatch, matchPosition };
       }
       return null;
     })
     .filter(Boolean)
     .sort((a, b) => {
+      // 标题匹配排最前
       if (a.titleMatch && !b.titleMatch) return -1;
       if (!a.titleMatch && b.titleMatch) return 1;
+      // 内容匹配排前面
+      if (a.contentMatch && !b.contentMatch) return -1;
+      if (!a.contentMatch && b.contentMatch) return 1;
       return 0;
     });
 }
@@ -430,7 +441,7 @@ const server = http.createServer((req, res) => {
     </div>
   </header>
   <div class="search-bar">
-    <input type="text" id="search-input" placeholder="🔍 搜索文章（标题+内容）..." oninput="doSearch(this.value)">
+    <input type="text" id="search-input" placeholder="搜索文章（标题+内容）..." oninput="doSearch(this.value)">
     <div id="search-results" class="search-results"></div>
   </div>
   <main class="post-list" id="post-list">${postCards || '<p class="empty">暂无文章，点击右上角"发布文章"来创建第一篇</p>'}</main>
@@ -466,11 +477,20 @@ function doSearch(q) {
           previewHtml = '<div class="search-preview">' + previewEsc + '</div>';
         }
         const href = '/post/' + encodeURIComponent(p.name) + '.' + linkExt;
-        return '<a class="search-item" href="' + href + '">' +
+        return '<a class="search-item" href="' + href + '" data-keyword="' + escapeHtml(q) + '" data-preview="' + (p.preview || '') + '">' +
           '<div class="search-item-title">' + nameEsc + ' <small>[' + extLabel + ']</small></div>' +
           previewHtml +
           '</a>';
       }).join('');
+      // 给搜索结果添加点击事件：跳转时带上 ?match=关键词
+      container.querySelectorAll('.search-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+          var kw = this.getAttribute('data-keyword');
+          var href = this.getAttribute('href') + '?match=' + encodeURIComponent(kw);
+          window.location.href = href;
+          e.preventDefault();
+        });
+      });
     })
     .catch(err => {
       console.error('搜索错误:', err);
@@ -546,6 +566,41 @@ function logout() {
   <footer><p>Powered by 个人知识库</p></footer>
 </div>
 <script>
+// 搜索跳转定位
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const kw = urlParams.get('match');
+  if (!kw) return;
+  var el = document.querySelector('.post-content');
+  if (!el) return;
+  // 遍历所有文本节点，替换匹配关键词
+  var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  var nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  var escapedKw = kw.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  var regex = new RegExp(escapedKw, 'gi');
+  var found = false;
+  nodes.forEach(function(node) {
+    if (found) return;
+    if (node.textContent.toLowerCase().indexOf(kw.toLowerCase()) !== -1) {
+      var span = document.createElement('span');
+      span.innerHTML = node.textContent.replace(regex, '<mark class="search-highlight">$&</mark>');
+      node.parentNode.replaceChild(span, node);
+      found = true;
+    }
+  });
+  if (found) {
+    setTimeout(function() {
+      var mark = el.querySelector('mark.search-highlight');
+      if (mark) {
+        mark.scrollIntoView({behavior:'smooth', block:'center'});
+        mark.style.transition = 'background 2s';
+        setTimeout(function(){ mark.style.background = 'transparent'; }, 2500);
+      }
+    }, 200);
+  }
+})();
+</script>
 function deletePost(name, ext) {
   if (!confirm('确定要删除这篇文章吗？')) return;
   fetch('/api/post/' + name, { method: 'DELETE' })
