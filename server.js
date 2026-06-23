@@ -14,7 +14,7 @@ const HOST = '0.0.0.0'; // 绑定所有网络接口，让外网可访问
 // 查看文章不需要密码（公开浏览）
 // ⚠️ 通过环境变量 POST_PASSWORD 设置密码，防止硬编码泄露
 // 如果不设置环境变量，默认密码就是以下值（建议部署时通过环境变量设置）
-const POST_PASSWORD = process.env.POST_PASSWORD || 'myblog123';
+const POST_PASSWORD = process.env.POST_PASSWORD || 'yjh199400';
 // 建议部署后立即在 Zeabur 后台设置环境变量 POST_PASSWORD 改成你自己的密码
 
 // Session cookie 有效期（7天）
