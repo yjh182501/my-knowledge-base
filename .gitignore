@@ -1,4 +1,11 @@
-node_modules/
-.env
-data/
-uploads/
+# Docker 配置
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# GitHub Actions 配置
+.github/workflows/deploy.yml
+
+# 文档
+DOCKER-DEPLOY.md
+.env.example
