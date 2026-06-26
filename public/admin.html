@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理后台 - 个人知识库</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header compact">
+    <div>
+      <p class="eyebrow">Private CMS</p>
+      <h1>管理后台</h1>
+      <p>在线写文章、草稿、发布和定时发布</p>
+    </div>
+    <a class="admin-link" href="/">前台</a>
+  </header>
+
+  <main class="admin-shell">
+    <section id="loginPanel" class="panel narrow">
+      <h2>登录</h2>
+      <input id="passwordInput" type="password" placeholder="管理密码">
+      <button id="loginBtn">登录</button>
+      <p id="loginMessage" class="message"></p>
+    </section>
+
+    <section id="adminPanel" class="hidden">
+      <div class="admin-grid">
+        <aside class="panel">
+          <div class="row between">
+            <h2>文章</h2>
+            <button id="newPostBtn" class="secondary">新建</button>
+          </div>
+          <input id="adminSearchInput" type="search" placeholder="搜索后台文章">
+          <div class="row batch-row">
+            <label class="check-label"><input id="selectAllPosts" type="checkbox"> 全选</label>
+            <button id="batchDeleteBtn" class="danger subtle">批量删除</button>
+          </div>
+          <div id="adminPostList" class="admin-post-list"></div>
+        </aside>
+
+        <section class="panel editor-panel">
+          <div class="editor-topbar">
+            <div class="mode-switch">
+              <button id="richModeBtn" class="mode-btn active" type="button">富文本</button>
+              <button id="markdownModeBtn" class="mode-btn" type="button">Markdown</button>
+            </div>
+            <div class="publish-actions">
+              <button id="saveDraftBtn" class="secondary" type="button">保存草稿</button>
+              <button id="publishPostBtn" class="publish-btn" type="button">发布</button>
+            </div>
+          </div>
+          <input id="postTitle" class="title-input" placeholder="文章标题">
+          <input id="postSummary" placeholder="摘要，可选">
+          <input id="coverImage" placeholder="封面图片地址，可选">
+          <div id="schedulePanel" class="publish-panel hidden">
+            <select id="postStatus">
+              <option value="published">立即发布</option>
+              <option value="scheduled">定时发布</option>
+            </select>
+            <input id="publishedAt" type="datetime-local">
+            <button id="confirmPublishBtn" type="button">确认发布</button>
+          </div>
+          <div id="richEditor" class="rich-editor" contenteditable="true" data-placeholder="默认使用富文本写作，可以直接粘贴图片和排版内容"></div>
+          <textarea id="postContent" class="hidden" placeholder="Markdown 内容"></textarea>
+          <button id="deletePostBtn" class="danger subtle" type="button">删除当前文章</button>
+          <div id="sharePanel" class="share-admin-panel hidden">
+            <div class="share-admin-header">
+              <strong>分享链接</strong>
+              <button id="revokeShareBtn" class="danger subtle" type="button">撤销分享</button>
+            </div>
+            <div id="shareAdminUrl" class="share-admin-url"></div>
+            <button id="copyShareUrlBtn" class="secondary" type="button">复制链接</button>
+          </div>
+          <button id="shareAdminBtn" class="secondary" type="button">🔗 生成分享链接</button>
+          <p id="adminMessage" class="message"></p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="/admin.js"></script>
+</body>
+</html>

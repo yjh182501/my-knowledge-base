@@ -4,9 +4,18 @@
   "description": "个人知识库 - 富文本/Markdown 博客系统",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test",
+    "migrate": "node scripts/migrate-posts.js"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "cookie": "^1.0.2",
+    "express": "^4.21.2",
+    "multer": "^2.0.2",
+    "slugify": "^1.6.6"
   }
 }

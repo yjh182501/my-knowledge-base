@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>个人知识库</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Personal Notes</p>
+      <h1>个人知识库</h1>
+      <p>记录技术心得、工作笔记、学习资料</p>
+    </div>
+    <a class="admin-link" href="/manage">管理</a>
+  </header>
+
+  <main class="layout">
+    <section class="toolbar search-shell">
+      <input id="searchInput" type="search" placeholder="搜索文章标题或内容">
+      <div id="searchPanel" class="search-panel hidden"></div>
+    </section>
+    <section id="postList" class="post-list"></section>
+    <article id="postDetail" class="post-detail hidden"></article>
+  </main>
+
+  <div id="inArticleSearchOverlay" class="in-article-search-overlay hidden"></div>
+  <div id="inArticleSearchPanel" class="in-article-search-panel hidden">
+    <div class="in-article-search-header">
+      <span class="in-article-search-title">🔍 页内搜索</span>
+      <span id="inArticleSearchBadge" class="in-article-search-badge">0/0</span>
+      <div class="in-article-search-nav">
+        <button id="inArticleSearchPrev" class="in-article-nav-btn" title="上一个 (Shift+Enter)">▲</button>
+        <button id="inArticleSearchNext" class="in-article-nav-btn" title="下一个 (Enter)">▼</button>
+      </div>
+      <button id="inArticleSearchClose" class="in-article-close-btn" title="关闭 (Esc)">✕</button>
+    </div>
+    <div class="in-article-search-input-wrap">
+      <input id="inArticleSearchInput" type="search" placeholder="在当前文章中搜索...">
+    </div>
+    <div id="inArticleSearchResults" class="in-article-search-results"></div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
