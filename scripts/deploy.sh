@@ -1,7 +1,7 @@
 #!/bin/bash
 # 一键部署个人知识库 CMS 到服务器
 # 使用方法：bash deploy.sh <服务器IP> <SSH用户名> <POST_PASSWORD>
-# 示例：bash deploy.sh 47.101.155.191 root "你的强密码"
+# 示例：bash deploy.sh 你的服务器公网IP root "你的强密码"
 
 set -e  # 遇到错误立即退出
 
@@ -12,7 +12,9 @@ echo "=========================================="
 # 参数检查
 if [ $# -lt 3 ]; then
     echo "用法: bash deploy.sh <服务器IP> <SSH用户名> <POST_PASSWORD>"
-    echo "示例: bash deploy.sh 47.101.155.191 root \"MyStrongPassword123!\""
+    echo "示例: bash deploy.sh 你的服务器公网IP root \"MyStrongPassword123!\""
+    echo ""
+    echo "提示: 公网 IP 地址请替换为你自己的服务器地址"
     exit 1
 fi
 
