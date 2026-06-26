@@ -10,7 +10,7 @@ function createConfig(overrides = {}) {
     uploadDir,
     dbPath: overrides.dbPath || process.env.BLOG_DB_PATH || join(dataDir, 'blog.sqlite'),
     staticDir: overrides.staticDir || join(rootDir, 'public'),
-    port: Number(overrides.port || process.env.PORT || 8080),
+    port: Number(overrides.port || process.env.PORT || 9090),
     host: overrides.host || process.env.HOST || '0.0.0.0',
     adminPassword: overrides.adminPassword || process.env.POST_PASSWORD || 'yjh199400',
     cookieName: 'blog_session',

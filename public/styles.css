@@ -412,13 +412,41 @@ mark {
   gap: 16px;
 }
 
+/* 移动端和小屏幕：自适应宽度 */
 @media (max-width: 900px) {
   .admin-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .panel {
     max-width: 100%;
+  }
+}
+
+/* 更小的屏幕：优化间距 */
+@media (max-width: 640px) {
+  .admin-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .panel {
+    padding: 16px 14px;
+  }
+
+  .admin-shell {
+    padding: 0 10px 24px;
+  }
+
+  body {
+    padding: 0 8px;
+  }
+
+  .narrow {
+    margin: 18px auto;
+    padding: 0 10px;
   }
 }
 
@@ -775,6 +803,7 @@ mark.admin-search-hit {
 
   .admin-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .editor-topbar, .publish-panel {
@@ -789,6 +818,163 @@ mark.admin-search-hit {
 
   .mode-switch > *, .publish-actions > * {
     flex: 1;
+  }
+}
+
+/* 移动端优化：更小的屏幕宽度 */
+@media (max-width: 640px) {
+  body {
+    padding: 0 8px;
+  }
+
+  .admin-shell {
+    padding: 0 8px 32px;
+  }
+
+  .narrow {
+    margin: 24px auto;
+    padding: 0 8px;
+  }
+
+  .narrow input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .narrow button {
+    font-size: 14px;
+    padding: 10px 14px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .admin-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .panel {
+    padding: 16px 14px;
+  }
+
+  .editor-panel {
+    gap: 10px;
+  }
+
+  .editor-topbar {
+    padding: 6px;
+    margin: -6px -6px 4px;
+    gap: 8px;
+  }
+
+  .editor-topbar .mode-switch,
+  .editor-topbar .publish-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .publish-panel {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .admin-post {
+    padding: 8px;
+  }
+
+  .admin-post-main strong {
+    font-size: 15px;
+  }
+
+  .share-admin-panel {
+    padding: 12px;
+  }
+
+  .share-admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .share-admin-url {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  .share-admin-url,
+  .share-admin-header button {
+    width: 100%;
+  }
+
+  .share-admin-url {
+    word-break: break-word;
+  }
+
+  .batch-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .batch-row > * {
+    width: 100%;
+  }
+
+  /* 确保文章列表区域可横向滚动 */
+  .admin-post-list {
+    max-height: 55vh;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-post {
+    min-width: 280px;
+  }
+
+  .admin-post-main {
+    min-width: 0;
+  }
+
+  /* 表格类容器横向滚动 */
+  .share-admin-url {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .title-input {
+    font-size: 18px;
+  }
+
+  .RichEditor, textarea {
+    min-height: 320px;
+  }
+
+  /* 图片最大宽度 */
+  .share-content img,
+  .article-body img,
+  .rich-editor img {
+    max-width: 100%;
+  }
+
+  /* 增加触控区域 */
+  button, .mode-btn, .publish-btn, .secondary {
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+
+  input, select {
+    min-height: 40px;
+  }
+
+  .check-label {
+    font-size: 13px;
+  }
+
+  .check-label input {
+    width: auto;
+    transform: scale(1.15);
+    margin: 0 4px;
   }
 }
 
