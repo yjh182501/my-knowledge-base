@@ -406,18 +406,33 @@ async function revokeShare() {
 
 function copyShareUrl() {
   const shareAdminUrl = document.getElementById('shareAdminUrl');
-  const url = shareAdminUrl.textContent;
+  if (!shareAdminUrl) return;
+  const url = shareAdminUrl.textContent.trim();
+  if (!url) return;
+
   navigator.clipboard.writeText(url).then(() => {
     adminMessage.textContent = '链接已复制到剪贴板';
-  }).catch(() => {
-    // 降级方案
-    const input = document.createElement('input');
-    input.value = url;
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-    adminMessage.textContent = '链接已复制到剪贴板';
+    adminMessage.style.color = '#0f766e';
+    setTimeout(() => { adminMessage.style.color = ''; }, 1500);
+  }).catch((err) => {
+    // 降级方案：使用 execCommand('copy')
+    try {
+      const input = document.createElement('textarea');
+      input.value = url;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      adminMessage.textContent = '链接已复制到剪贴板';
+      adminMessage.style.color = '#0f766e';
+      setTimeout(() => { adminMessage.style.color = ''; }, 1500);
+    } catch (e) {
+      adminMessage.textContent = '复制失败，请手动复制';
+      adminMessage.style.color = '#bf3b35';
+      setTimeout(() => { adminMessage.style.color = ''; }, 1500);
+    }
   });
 }
 

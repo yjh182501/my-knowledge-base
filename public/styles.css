@@ -412,6 +412,16 @@ mark {
   gap: 16px;
 }
 
+@media (max-width: 900px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    max-width: 100%;
+  }
+}
+
 .narrow {
   max-width: 420px;
   margin: 40px auto;
@@ -811,6 +821,39 @@ mark.admin-search-hit {
   animation: slideUp 0.25s;
 }
 
+@media (max-width: 480px) {
+  .share-dialog {
+    padding: 24px 16px 16px;
+    width: 95%;
+  }
+  
+  .share-dialog-title {
+    font-size: 1em;
+  }
+  
+  .share-dialog-desc {
+    font-size: 0.82em;
+  }
+  
+  .share-dialog-url {
+    flex-direction: column;
+  }
+  
+  .share-dialog-url input {
+    width: 100%;
+    order: 1;
+  }
+  
+  .share-copy-btn {
+    width: 100%;
+    order: 2;
+  }
+  
+  .share-dialog-hint {
+    font-size: 0.74em;
+  }
+}
+
 .share-dialog-title {
   font-size: 1.15em;
   font-weight: 700;
@@ -921,4 +964,26 @@ mark.admin-search-hit {
   word-break: break-all;
   margin-bottom: 10px;
   user-select: all;
+}
+
+@media (max-width: 480px) {
+  .share-admin-panel {
+    padding: 12px;
+  }
+
+  .share-admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .share-admin-url {
+    font-size: 0.76em;
+    word-break: break-word;
+  }
+
+  .share-admin-url {
+    max-width: 100%;
+    overflow-x: auto;
+  }
 }
