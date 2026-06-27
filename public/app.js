@@ -4,6 +4,44 @@ const searchInput = document.getElementById('searchInput');
 const searchPanel = document.getElementById('searchPanel');
 
 let currentSearch = '';
+let currentPostSlug = '';
+let hasListGuardState = false;
+
+function getListUrl() {
+  return currentSearch ? `${location.pathname}?q=${encodeURIComponent(currentSearch)}` : location.pathname;
+}
+
+function ensureListGuardState() {
+  if (hasListGuardState) return;
+  const url = getListUrl();
+  history.replaceState({ view: 'guard', q: currentSearch || '' }, '', url);
+  history.pushState({ view: 'list', q: currentSearch || '' }, '', url);
+  hasListGuardState = true;
+}
+
+function setListState({ replace = false } = {}) {
+  const url = getListUrl();
+  const state = { view: 'list', q: currentSearch || '' };
+  if (!replace) {
+    history.pushState(state, '', url);
+    return;
+  }
+  if (history.state?.view === 'guard') {
+    history.pushState(state, '', url);
+    return;
+  }
+  if (replace) {
+    history.replaceState(state, '', url);
+    return;
+  }
+}
+
+function setPostState(slug, keyword = '') {
+  const params = new URLSearchParams();
+  params.set('post', slug);
+  if (keyword) params.set('q', keyword);
+  history.pushState({ view: 'post', slug, q: keyword || '' }, '', `${location.pathname}?${params.toString()}`);
+}
 
 async function loadPosts(q = '') {
   const response = await fetch('/api/posts' + (q ? `?q=${encodeURIComponent(q)}` : ''));
@@ -14,6 +52,7 @@ async function loadPosts(q = '') {
 
 function renderPostList(posts) {
   exitReadingMode();
+  currentPostSlug = '';
   postDetail.classList.add('hidden');
   postList.classList.remove('hidden');
   searchPanel.classList.add('hidden');
@@ -33,6 +72,19 @@ function renderPostList(posts) {
   });
 }
 
+function showListView() {
+  currentPostSlug = '';
+  exitReadingMode();
+  postDetail.classList.add('hidden');
+  postList.classList.remove('hidden');
+  if (currentSearch) {
+    searchPanel.classList.remove('hidden');
+    loadPosts(currentSearch);
+    return;
+  }
+  searchPanel.classList.add('hidden');
+}
+
 function renderSearchResults(posts, keyword) {
   searchPanel.classList.remove('hidden');
   if (posts.length === 0) {
@@ -50,20 +102,23 @@ function renderSearchResults(posts, keyword) {
   });
 }
 
-async function loadPost(slug, keyword = '') {
+async function loadPost(slug, keyword = '', options = {}) {
+  const { pushState = true } = options;
   const response = await fetch(`/api/posts/${encodeURIComponent(slug)}`);
   const body = await response.json();
   if (!body.ok) return;
   const post = body.post;
   currentSearch = keyword;
+  currentPostSlug = slug;
   postList.classList.add('hidden');
   searchPanel.classList.add('hidden');
   postDetail.classList.remove('hidden');
   enterReadingMode();
+  if (pushState) setPostState(slug, keyword);
   const articleHtml = post.contentFormat === 'html' ? post.content : markdownToHtml(post.content);
   postDetail.innerHTML = `
     <div class="post-detail-topbar">
-      <button class="text-button" id="backBtn">返回列表</button>
+      <button class="text-button reading-back-btn" id="backBtn" aria-label="返回列表"><span aria-hidden="true">←</span>返回列表</button>
       <div class="topbar-right">
         <button class="text-button icon-text-button" id="shareBtn" title="生成分享链接"><span aria-hidden="true">↗</span>分享</button>
         <button class="text-button icon-text-button" id="inArticleSearchBtn" title="在文章内搜索 (Ctrl+F)"><span aria-hidden="true">⌕</span>页内搜索</button>
@@ -74,10 +129,12 @@ async function loadPost(slug, keyword = '') {
     <div class="article-body">${articleHtml}</div>
   `;
   document.getElementById('backBtn').addEventListener('click', () => {
-    exitReadingMode();
-    postDetail.classList.add('hidden');
-    postList.classList.remove('hidden');
-    closeInArticleSearch();
+    if (history.state?.view === 'post') {
+      history.back();
+      return;
+    }
+    showListView();
+    setListState({ replace: true });
   });
   document.getElementById('inArticleSearchBtn').addEventListener('click', openInArticleSearch);
   document.getElementById('shareBtn').addEventListener('click', () => sharePost(post));
@@ -161,8 +218,25 @@ searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim();
   searchTimer = setTimeout(() => {
     currentSearch = q;
+    setListState({ replace: true });
     loadPosts(q);
   }, 180);
+});
+
+window.addEventListener('popstate', () => {
+  const state = history.state || { view: 'list', q: '' };
+  if (state.view === 'guard') {
+    showListView();
+    setListState();
+    return;
+  }
+  currentSearch = state.q || '';
+  searchInput.value = currentSearch;
+  if (state.view === 'post' && state.slug) {
+    loadPost(state.slug, currentSearch, { pushState: false });
+    return;
+  }
+  showListView();
 });
 
 // ========== 页内搜索功能 ==========
@@ -481,4 +555,14 @@ function setShareCopyState(button, copied) {
   button.classList.toggle('copy-success', copied);
 }
 
-loadPosts();
+const initialParams = new URLSearchParams(location.search);
+const initialKeyword = initialParams.get('q') || '';
+const initialPostSlug = initialParams.get('post') || '';
+currentSearch = initialKeyword;
+searchInput.value = initialKeyword;
+ensureListGuardState();
+if (initialPostSlug) {
+  loadPost(initialPostSlug, initialKeyword, { pushState: false });
+} else {
+  loadPosts(initialKeyword);
+}

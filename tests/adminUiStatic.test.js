@@ -50,6 +50,26 @@ test('public post detail enters an immersive reading mode', () => {
   assert.match(appJs, /document\.body\.classList\.remove\('reading-mode'\)/);
   assert.match(css, /body\.reading-mode \.site-header[\s\S]*display:\s*none/);
   assert.match(css, /body\.reading-mode \.search-shell[\s\S]*display:\s*none/);
+  assert.match(css, /body\.reading-mode \.post-detail-topbar[\s\S]*background:\s*transparent/);
+});
+
+test('mobile reading uses history state so back returns to the list first', () => {
+  const appJs = readFileSync(join(__dirname, '..', 'public', 'app.js'), 'utf8');
+
+  assert.match(appJs, /history\.pushState\(\{ view: 'post', slug, q: keyword \|\| '' \}/);
+  assert.match(appJs, /history\.replaceState\(state, '', url\)/);
+  assert.match(appJs, /window\.addEventListener\('popstate'/);
+  assert.match(appJs, /if \(history\.state\?\.view === 'post'\) \{/);
+  assert.match(appJs, /history\.back\(\)/);
+});
+
+test('mobile list view installs a guard history entry so the first back stays in-site', () => {
+  const appJs = readFileSync(join(__dirname, '..', 'public', 'app.js'), 'utf8');
+
+  assert.match(appJs, /function ensureListGuardState\(\)/);
+  assert.match(appJs, /history\.replaceState\(\{ view: 'guard', q: currentSearch \|\| '' \}, '', url\)/);
+  assert.match(appJs, /history\.pushState\(\{ view: 'list', q: currentSearch \|\| '' \}, '', url\)/);
+  assert.match(appJs, /if \(state\.view === 'guard'\) \{/);
 });
 
 test('front share copy uses a robust copy helper and updates the button state', () => {

@@ -711,6 +711,19 @@ mark {
   margin-bottom: 16px;
 }
 
+.reading-back-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.08);
+  color: #0f766e;
+  font-size: 13px;
+  line-height: 1;
+}
+
 .in-article-search-overlay {
   position: fixed;
   inset: 0;
@@ -985,31 +998,63 @@ mark.admin-search-hit {
   }
 
   .post-detail {
-    padding: 18px 14px 22px;
+    padding: 14px 12px 22px;
     border-radius: 12px;
   }
 
   .post-detail h1 {
-    font-size: 25px;
+    font-size: 23px;
     line-height: 1.32;
   }
 
   .post-detail-topbar {
     align-items: stretch;
+    gap: 8px;
+    margin-bottom: 12px;
   }
 
   .post-detail-topbar > .text-button {
-    flex: 1 1 118px;
+    flex: 1 1 104px;
   }
 
   .topbar-right {
-    flex: 2 1 190px;
+    flex: 2 1 180px;
     justify-content: flex-end;
   }
 
   .topbar-right .text-button {
-    flex: 1 1 88px;
+    flex: 1 1 84px;
     padding: 9px 10px;
+  }
+
+  body.reading-mode .post-detail {
+    padding-top: 10px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.94);
+  }
+
+  body.reading-mode .layout {
+    padding: 0 0 24px;
+  }
+
+  body.reading-mode .post-detail-topbar {
+    margin: 0 0 10px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+  }
+
+  body.reading-mode .reading-back-btn {
+    justify-content: flex-start;
+    padding-left: 12px;
+  }
+
+  body.reading-mode .topbar-right {
+    gap: 8px;
   }
 
   .editor-panel {
