@@ -12,6 +12,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@fontsource/noto-serif-sc": "^5.2.8",
     "better-sqlite3": "^11.10.0",
     "cookie": "^1.0.2",
     "express": "^4.21.2",

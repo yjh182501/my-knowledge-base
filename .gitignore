@@ -9,3 +9,10 @@ docker-compose.yml
 # 文档
 DOCKER-DEPLOY.md
 .env.example
+
+# 运行数据
+data/
+uploads/
+logs/
+.env
+node_modules/

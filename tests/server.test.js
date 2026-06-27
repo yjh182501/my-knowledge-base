@@ -53,6 +53,20 @@ test('rejects admin writes without login', async () => {
   }
 });
 
+test('serves the rich-text serif font assets for mobile reading', async () => {
+  const ctx = await createTestServer();
+  try {
+    const response = await ctx.request('/fonts/noto-serif-sc/chinese-simplified.css');
+    const css = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.match(css, /font-family:\s*'Noto Serif SC'/);
+    assert.match(css, /noto-serif-sc-/);
+  } finally {
+    ctx.cleanup();
+  }
+});
+
 test('creates a draft through the admin API and hides it publicly', async () => {
   const ctx = await createTestServer();
   try {

@@ -42,6 +42,7 @@ function createApp(overrides = {}) {
   app.locals.store = store;
   app.use(express.json({ limit: '5mb' }));
   app.use('/uploads', express.static(config.uploadDir));
+  app.use('/fonts/noto-serif-sc', express.static(join(__dirname, '..', 'node_modules', '@fontsource', 'noto-serif-sc')));
   app.use(express.static(config.staticDir));
 
   app.post('/api/auth/login', (req, res) => {
@@ -239,7 +240,9 @@ function generateSharePage(post) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${title} - 分享阅读</title>
 <style>
+@import url("/fonts/noto-serif-sc/chinese-simplified.css");
 *{margin:0;padding:0;box-sizing:border-box}
+:root{--article-serif-font:"Noto Serif SC","Songti SC","STSong","SimSun","Times New Roman",serif}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#f8fafc;color:#1e293b;line-height:1.75;min-height:100vh}
 .share-header{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0d9488 100%);padding:40px 20px 30px;text-align:center}
 .share-header h1{color:#f0fdfa;font-size:1.5em;font-weight:700;margin-bottom:8px;word-break:break-word}
@@ -247,6 +250,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .share-badge{display:inline-block;background:rgba(13,148,136,0.2);color:#5eead4;font-size:0.75em;padding:2px 10px;border-radius:12px;border:1px solid rgba(13,148,136,0.3);margin-top:10px}
 .share-container{max-width:780px;margin:0 auto;padding:24px 20px 60px}
 .share-content{background:#fff;border-radius:12px;padding:32px 28px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.share-content,.share-content :not(pre):not(code){font-family:var(--article-serif-font)!important}
 .share-content img{max-width:100%;height:auto;border-radius:6px;margin:12px 0}
 .share-content pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto;margin:14px 0;font-size:0.88em;line-height:1.6}
 .share-content code{font-family:"SF Mono",Menlo,Monaco,Consolas,monospace;font-size:0.9em}

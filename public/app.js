@@ -13,6 +13,7 @@ async function loadPosts(q = '') {
 }
 
 function renderPostList(posts) {
+  exitReadingMode();
   postDetail.classList.add('hidden');
   postList.classList.remove('hidden');
   searchPanel.classList.add('hidden');
@@ -58,13 +59,14 @@ async function loadPost(slug, keyword = '') {
   postList.classList.add('hidden');
   searchPanel.classList.add('hidden');
   postDetail.classList.remove('hidden');
+  enterReadingMode();
   const articleHtml = post.contentFormat === 'html' ? post.content : markdownToHtml(post.content);
   postDetail.innerHTML = `
     <div class="post-detail-topbar">
       <button class="text-button" id="backBtn">返回列表</button>
       <div class="topbar-right">
-        <button class="text-button" id="shareBtn" title="生成分享链接">🔗 分享</button>
-        <button class="text-button" id="inArticleSearchBtn" title="在文章内搜索 (Ctrl+F)">🔍 页内搜索</button>
+        <button class="text-button icon-text-button" id="shareBtn" title="生成分享链接"><span aria-hidden="true">↗</span>分享</button>
+        <button class="text-button icon-text-button" id="inArticleSearchBtn" title="在文章内搜索 (Ctrl+F)"><span aria-hidden="true">⌕</span>页内搜索</button>
       </div>
     </div>
     <h1>${escapeHtml(post.title)}</h1>
@@ -72,6 +74,7 @@ async function loadPost(slug, keyword = '') {
     <div class="article-body">${articleHtml}</div>
   `;
   document.getElementById('backBtn').addEventListener('click', () => {
+    exitReadingMode();
     postDetail.classList.add('hidden');
     postList.classList.remove('hidden');
     closeInArticleSearch();
@@ -85,6 +88,15 @@ async function loadPost(slug, keyword = '') {
       if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 80);
   }
+}
+
+function enterReadingMode() {
+  document.body.classList.add('reading-mode');
+}
+
+function exitReadingMode() {
+  document.body.classList.remove('reading-mode');
+  closeInArticleSearch();
 }
 
 function highlightArticle(keyword) {
@@ -168,11 +180,12 @@ function openInArticleSearch() {
   if (inp) { inp.focus(); inp.select(); }
 }
 
-function closeInArticleSearch() {
+function closeInArticleSearch({ keepHighlights = false } = {}) {
   const panel = document.getElementById('inArticleSearchPanel');
   const overlay = document.getElementById('inArticleSearchOverlay');
   if (panel) panel.classList.add('hidden');
   if (overlay) overlay.classList.add('hidden');
+  if (keepHighlights) return;
   clearInArticleHighlights();
   inArticleMatches = [];
   inArticleActiveIndex = -1;
@@ -235,7 +248,7 @@ function doInArticleSearch(q) {
     resultsEl.querySelectorAll('.in-article-result-item').forEach(item => {
       item.addEventListener('click', () => {
         inArticleActiveIndex = Number(item.dataset.idx);
-        jumpInArticle();
+        jumpInArticle({ closePanel: true });
       });
     });
   }
@@ -275,7 +288,7 @@ function clearInArticleHighlights() {
   });
 }
 
-function jumpInArticle() {
+function jumpInArticle({ closePanel = false } = {}) {
   const contentEl = postDetail.querySelector('.article-body');
   if (!contentEl) return;
   const marks = contentEl.querySelectorAll('mark.in-article-highlight');
@@ -284,21 +297,13 @@ function jumpInArticle() {
 
   // 清除旧的高亮样式
   marks.forEach(m => {
-    m.style.background = '';
-    m.style.boxShadow = '';
+    m.classList.remove('active-hit');
   });
 
   if (marks[inArticleActiveIndex]) {
-    marks[inArticleActiveIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    marks[inArticleActiveIndex].style.background = '#fde68a';
-    marks[inArticleActiveIndex].style.boxShadow = '0 0 0 3px #fcd34d';
-    marks[inArticleActiveIndex].style.transition = 'background 1.5s, box-shadow 1.5s';
-    setTimeout(() => {
-      if (marks[inArticleActiveIndex]) {
-        marks[inArticleActiveIndex].style.background = '#fef08a';
-        marks[inArticleActiveIndex].style.boxShadow = '0 0 0 2px #fde047';
-      }
-    }, 2000);
+    const activeMark = marks[inArticleActiveIndex];
+    activeMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    activeMark.classList.toggle('active-hit', true);
   }
 
   if (badge) badge.textContent = (inArticleActiveIndex + 1) + '/' + inArticleMatches.length;
@@ -311,6 +316,8 @@ function jumpInArticle() {
     const activeItem = resultsEl.querySelector('.in-article-result-item.active');
     if (activeItem) activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+
+  if (closePanel) closeInArticleSearch({ keepHighlights: true });
 }
 
 function nextInArticleMatch() {
@@ -418,20 +425,60 @@ function showShareDialog(token) {
   const input = document.getElementById('shareUrlInput');
   input.select();
 
-  document.getElementById('shareCopyBtn').addEventListener('click', () => {
-    navigator.clipboard.writeText(url).then(() => {
-      document.getElementById('shareCopyBtn').textContent = '已复制';
+  document.getElementById('shareCopyBtn').addEventListener('click', async () => {
+    const button = document.getElementById('shareCopyBtn');
+    const copied = await copyTextToClipboard(url, input);
+    if (copied) {
+      setShareCopyState(button, true);
+      showShareCopyToast('已复制分享链接');
       setTimeout(() => {
-        document.getElementById('shareCopyBtn').textContent = '复制';
+        setShareCopyState(button, false);
       }, 2000);
-    }).catch(() => {
-      input.select();
-      document.execCommand('copy');
-      document.getElementById('shareCopyBtn').textContent = '已复制';
-    });
+      return;
+    }
+    button.textContent = '复制失败';
+    setTimeout(() => setShareCopyState(button, false), 1600);
   });
 
   document.getElementById('shareDialogClose').addEventListener('click', () => overlay.remove());
+}
+
+function showShareCopyToast(message) {
+  const existing = document.querySelector('.copy-toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 20);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 180);
+  }, 1800);
+}
+
+async function copyTextToClipboard(text, fallbackInput) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (error) {
+    // Fall through to the input-based fallback used by in-app mobile browsers.
+  }
+  try {
+    fallbackInput.select();
+    fallbackInput.setSelectionRange(0, fallbackInput.value.length);
+    return document.execCommand('copy');
+  } catch (error) {
+    return false;
+  }
+}
+
+function setShareCopyState(button, copied) {
+  if (!button) return;
+  button.textContent = copied ? '已复制' : '复制';
+  button.classList.toggle('copy-success', copied);
 }
 
 loadPosts();

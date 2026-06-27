@@ -222,7 +222,14 @@ async function savePost(status, options = {}) {
 }
 
 async function deletePost() {
-  if (!activeId || !confirm('确定删除这篇文章吗？')) return;
+  if (!activeId) return;
+  const confirmed = await showConfirmDialog({
+    title: '删除当前文章',
+    message: '确定删除这篇文章吗？删除后无法恢复。',
+    confirmText: '删除',
+    danger: true,
+  });
+  if (!confirmed) return;
   const response = await fetch(`/api/admin/posts/${activeId}`, { method: 'DELETE' });
   if (!response.ok) {
     adminMessage.textContent = '删除失败';
@@ -236,7 +243,13 @@ async function deletePost() {
 
 async function batchDelete() {
   if (selectedIds.size === 0) return;
-  if (!confirm(`确定删除选中的 ${selectedIds.size} 篇文章吗？`)) return;
+  const confirmed = await showConfirmDialog({
+    title: '批量删除文章',
+    message: `确定删除选中的 ${selectedIds.size} 篇文章吗？删除后无法恢复。`,
+    confirmText: '删除',
+    danger: true,
+  });
+  if (!confirmed) return;
   const response = await fetch('/api/admin/posts/batch-delete', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -396,7 +409,13 @@ async function generateShare() {
 
 async function revokeShare() {
   if (!activeId) return;
-  if (!confirm('确定撤销分享链接？撤销后原链接将失效')) return;
+  const confirmed = await showConfirmDialog({
+    title: '撤销分享链接',
+    message: '确定撤销分享链接吗？撤销后原链接将失效。',
+    confirmText: '撤销',
+    danger: true,
+  });
+  if (!confirmed) return;
   const response = await fetch(`/api/admin/posts/${activeId}/share`, { method: 'DELETE' });
   const body = await response.json();
   if (!response.ok) { adminMessage.textContent = body.error || '撤销失败'; return; }
@@ -404,35 +423,145 @@ async function revokeShare() {
   updateSharePanel({ shareToken: null });
 }
 
-function copyShareUrl() {
+async function copyShareUrl() {
   const shareAdminUrl = document.getElementById('shareAdminUrl');
+  const copyButton = document.getElementById('copyShareUrlBtn');
   if (!shareAdminUrl) return;
   const url = shareAdminUrl.textContent.trim();
   if (!url) return;
 
-  navigator.clipboard.writeText(url).then(() => {
-    adminMessage.textContent = '链接已复制到剪贴板';
-    adminMessage.style.color = '#0f766e';
-    setTimeout(() => { adminMessage.style.color = ''; }, 1500);
-  }).catch((err) => {
-    // 降级方案：使用 execCommand('copy')
-    try {
-      const input = document.createElement('textarea');
-      input.value = url;
-      input.style.position = 'fixed';
-      input.style.opacity = '0';
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      adminMessage.textContent = '链接已复制到剪贴板';
-      adminMessage.style.color = '#0f766e';
-      setTimeout(() => { adminMessage.style.color = ''; }, 1500);
-    } catch (e) {
-      adminMessage.textContent = '复制失败，请手动复制';
-      adminMessage.style.color = '#bf3b35';
-      setTimeout(() => { adminMessage.style.color = ''; }, 1500);
+  if (copyButton) copyButton.textContent = '复制中...';
+
+  try {
+    await copyTextWithFallback(url);
+    showCopySuccess(copyButton);
+  } catch (err) {
+    showManualCopyDialog(url, copyButton);
+  }
+}
+
+async function copyTextWithFallback(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const input = document.createElement('textarea');
+  input.value = text;
+  input.setAttribute('readonly', '');
+  input.style.position = 'fixed';
+  input.style.top = '0';
+  input.style.left = '-9999px';
+  document.body.appendChild(input);
+  input.focus();
+  input.select();
+  input.setSelectionRange(0, input.value.length);
+  const copied = document.execCommand('copy');
+  document.body.removeChild(input);
+  if (!copied) throw new Error('copy command failed');
+}
+
+function showCopySuccess(button) {
+  adminMessage.textContent = '已复制链接';
+  adminMessage.style.color = '#0f766e';
+  showCopyToast('已复制链接');
+  if (!button) return;
+  const oldText = button.textContent;
+  button.textContent = '已复制链接';
+  button.classList.add('copy-success');
+  setTimeout(() => {
+    button.textContent = oldText;
+    button.classList.remove('copy-success');
+    adminMessage.style.color = '';
+  }, 1800);
+}
+
+function showCopyToast(message) {
+  const existing = document.querySelector('.copy-toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 20);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 180);
+  }, 1800);
+}
+
+function showManualCopyDialog(url, button) {
+  if (button) button.textContent = '复制';
+  adminMessage.textContent = '请长按链接手动复制';
+  adminMessage.style.color = '#bf3b35';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'app-dialog-overlay';
+  overlay.innerHTML = `
+    <div class="app-dialog" role="dialog" aria-modal="true" aria-labelledby="manualCopyTitle">
+      <div class="app-dialog-title" id="manualCopyTitle">手动复制链接</div>
+      <div class="app-dialog-message">当前浏览器限制了自动复制，请长按下方链接复制。</div>
+      <textarea class="manual-copy-text" readonly>${escapeHtml(url)}</textarea>
+      <div class="app-dialog-actions">
+        <button type="button" class="app-dialog-confirm">知道了</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const close = () => {
+    overlay.classList.remove('show');
+    setTimeout(() => overlay.remove(), 160);
+    adminMessage.style.color = '';
+  };
+  const textArea = overlay.querySelector('.manual-copy-text');
+  overlay.querySelector('.app-dialog-confirm').addEventListener('click', close);
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) close();
+  });
+  setTimeout(() => {
+    overlay.classList.add('show');
+    if (textArea) {
+      textArea.focus();
+      textArea.select();
     }
+  }, 20);
+}
+
+function showConfirmDialog({ title, message, confirmText = '确定', danger = false }) {
+  return new Promise(resolve => {
+    const overlay = document.createElement('div');
+    overlay.className = 'app-dialog-overlay';
+    overlay.innerHTML = `
+      <div class="app-dialog" role="dialog" aria-modal="true" aria-labelledby="confirmDialogTitle">
+        <div class="app-dialog-title" id="confirmDialogTitle">${escapeHtml(title)}</div>
+        <div class="app-dialog-message">${escapeHtml(message)}</div>
+        <div class="app-dialog-actions">
+          <button type="button" class="app-dialog-cancel">取消</button>
+          <button type="button" class="app-dialog-confirm ${danger ? 'danger' : ''}">${escapeHtml(confirmText)}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const onKeydown = event => {
+      if (event.key !== 'Escape') return;
+      close(false);
+    };
+    const close = value => {
+      document.removeEventListener('keydown', onKeydown);
+      overlay.classList.remove('show');
+      setTimeout(() => overlay.remove(), 160);
+      resolve(value);
+    };
+
+    overlay.querySelector('.app-dialog-cancel').addEventListener('click', () => close(false));
+    overlay.querySelector('.app-dialog-confirm').addEventListener('click', () => close(true));
+    overlay.addEventListener('click', event => {
+      if (event.target === overlay) close(false);
+    });
+    document.addEventListener('keydown', onKeydown);
+    setTimeout(() => overlay.classList.add('show'), 20);
   });
 }
 
